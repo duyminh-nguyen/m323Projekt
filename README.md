@@ -64,26 +64,99 @@ All changes are automatically persisted in:
 
 ------------------------------------------------------------------------
 
-## Architecture
+---
 
-### Layer Responsibilities
+## Architecture Overview
 
-  ----------------------------------------------------------------------------------
-  Layer                            Responsibility
-  -------------------------------- -------------------------------------------------
-  `index.js`                       Starts the application only
+The application follows a layered architecture with clear separation of concerns and isolated side effects.
 
-  `cli/menu.js`                    Handles user input/output and delegates to pure
-                                   layers
+- **index.js (Entry Layer)**  
+  Starts the application and calls the CLI.
 
-  `data/characterRepository.js`    Performs file I/O only
+- **cli/menu.js (Interaction Layer)**  
+  Handles all user input/output via the terminal, manages application state during runtime, and orchestrates calls to services and persistence.
 
-  `services/characterService.js`   Implements pure business logic
+- **services/characterService.js (Business Logic Layer)**  
+  Contains pure functions for all core operations such as adding, updating, deleting, filtering, sorting, and computing statistics.
 
-  `utils/validators.js`            Validates data using pure functions
+- **utils/validators.js (Validation Layer)**  
+  Ensures that all character data follows defined rules before being processed.
 
-  `utils/formatters.js`            Formats display output using pure functions
-  ----------------------------------------------------------------------------------
+- **utils/formatters.js (Formatting Layer)**  
+  Prepares data for display in the terminal (lists, details, messages).
+
+- **data/characterRepository.js (Persistence Layer)**  
+  Handles reading from and writing to the JSON file.
+
+- **data/characters.json (Storage)**  
+  Persistent storage of all character data.
+
+This structure ensures that business logic remains pure while side effects (I/O, console interaction) are isolated.
+
+---
+
+## Application Data Flow
+
+### On Startup
+1. The application starts via `index.js`
+2. The CLI loads data using the repository
+3. Data is read from `characters.json`
+4. The data is stored in memory
+5. The menu is displayed
+
+### Read Operations (View, Filter, Statistics)
+1. User selects an option
+2. CLI accesses in-memory data
+3. Service functions process the data if needed
+4. Formatters prepare output
+5. Result is displayed in the terminal
+
+### Write Operations (Add, Edit, Delete)
+1. User inputs data via CLI
+2. CLI sends data to service layer
+3. Service validates data using validators
+4. If valid, a new updated state is returned
+5. CLI updates in-memory state
+6. Repository persists the new state to `characters.json`
+7. CLI displays success or error message
+
+---
+
+## Architecture Diagram
+
+```mermaid
+flowchart TD
+    A[index.js<br/>Application Entry]
+    B[cli/menu.js<br/>CLI / User Interaction]
+    C[services/characterService.js<br/>Pure Business Logic]
+    D[utils/validators.js<br/>Validation]
+    E[utils/formatters.js<br/>Display Formatting]
+    F[data/characterRepository.js<br/>Persistence]
+    G[data/characters.json<br/>Storage]
+
+    A --> B
+    B --> C
+    B --> E
+    C --> D
+    B --> F
+    F --> G
+```
+
+---
+
+## Data Flow Diagram
+
+```mermaid
+flowchart LR
+    U[User Input] --> CLI[cli/menu.js]
+    CLI --> S[characterService.js]
+    S --> V[validators.js]
+    V --> S
+    S --> CLI
+    CLI --> F[characterRepository.js]
+    F --> J[characters.json]
+    CLI --> O[Formatted Output]
+```
 
 ### Functional Programming Design Choices
 
@@ -204,3 +277,5 @@ This project highlights functional programming strengths through: - pure
 business logic - immutable updates - higher-order functions - function
 composition - closures - recursion - clear separation of I/O and core
 logic
+
+
