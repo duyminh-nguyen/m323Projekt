@@ -208,45 +208,47 @@ correctness - repository loading normalizes persisted JSON data
 
 ## Testing
 
-### What is tested
+### Automated Test Coverage
 
-1.  **Startup / Exit**
-    -   application starts correctly
-    -   banner and menu render correctly
-    -   exit closes the application cleanly
-2.  **Create**
-    -   adding a valid character succeeds
-    -   invalid data is rejected
-    -   invalid data is not persisted
-3.  **Read**
-    -   list all characters works
-    -   character detail view works
-    -   filtering by role works
-    -   role statistics are correct
-4.  **Update**
-    -   editing a character updates only the selected entry
-    -   unchanged fields remain intact
-    -   invalid edits are rejected
-5.  **Delete**
-    -   deleting a character removes it from the list
-    -   cancellation leaves data unchanged
-6.  **Persistence**
-    -   added characters remain after restart
-    -   edited characters remain after restart
-    -   deleted characters remain deleted after restart
-7.  **Empty-State Behaviour**
-    -   listing, editing, viewing, and deleting behave correctly when no
-        characters exist
+The following modules are covered by automated unit tests:
+
+- `utils/validators.js`
+  - validation of required fields
+  - age validation
+  - role validation
+  - valid vs invalid character inputs
+
+- `services/characterService.js`
+  - add, update, delete operations
+  - immutability (no mutation of original data)
+  - filtering, sorting, and statistics
+  - ID generation
+
+- `data/characterRepository.js`
+  - loading characters from JSON
+  - handling invalid or missing files
+  - normalization of persisted data
+  - saving valid data to disk
+
+All tests ensure deterministic behavior and validate the functional programming principles used in the project.
 
 ### How to test
 
-Run the application:
+#### Run automated tests
 
-``` bash
+```bash
+npm test
+```
+
+This executes all unit tests located in the `test/` directory using Node's built-in test runner.
+
+#### Run the application manually
+
+```bash
 npm start
 ```
 
-Then test the flows manually through the CLI.
+Manual testing through the CLI can be used in addition to automated tests to verify user interaction and overall application flow.
 
 ### Expected outcomes
 
