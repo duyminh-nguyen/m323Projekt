@@ -1,5 +1,7 @@
 # ⚔ Final Fantasy XIII --- Character Database Viewer
 
+![Tests](https://github.com/duyminh-nguyen/m323Projekt/actions/workflows/test.yml/badge.svg)
+
 A terminal-only Node.js application for managing Final Fantasy XIII
 characters.\
 The project is intentionally designed to demonstrate **Functional
