@@ -277,6 +277,8 @@ const deleteCharacter = (characters, id) => {
 // Filtering / sorting / statistics
 // ---------------------------------------------------------------------------
 
+const { lazyFilter, toArray } = require("../utils/lazy");
+
 /**
  * Factory that returns a role-filter function.
  * Closure: the returned function captures the normalised role once.
@@ -285,13 +287,19 @@ const deleteCharacter = (characters, id) => {
  * @returns {(characters: Character[]) => Character[]}
  */
 const createRoleFilter = (role) => {
-  const normalisedRole = role.toLowerCase();
+  const normalizedRole = String(role).trim().toLowerCase();
 
   return (characters) =>
-      characters.filter(
-          (character) => character.primaryRole.toLowerCase() === normalisedRole
+      toArray(
+          lazyFilter(
+              characters,
+              (character) =>
+                  String(character.primaryRole).trim().toLowerCase() === normalizedRole
+          )
       );
 };
+
+
 
 /**
  * Return the sorted character list (alphabetically by name).

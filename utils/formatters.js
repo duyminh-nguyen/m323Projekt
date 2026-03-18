@@ -22,6 +22,8 @@
  * @typedef {"reset" | "bold" | "dim" | "cyan" | "yellow" | "green" | "red" | "magenta" | "white" | "bgBlue"} ColourName
  */
 
+const { lazyMap, toArray } = require("./lazy");
+
 // ---------------------------------------------------------------------------
 // ANSI colour helpers (pure string builders)
 // ---------------------------------------------------------------------------
@@ -47,14 +49,19 @@ const COLOURS = Object.freeze({
 const joinLines = (lines) => lines.join("\n");
 
 /**
- * Map items to lines, then join them.
+ * Map items to lines lazily, then join them.
  * HOF helper for display pipelines.
  *
  * @template T
  * @param {(value: T, index: number) => string} mapper
  * @returns {(values: T[]) => string}
  */
-const mapToLines = (mapper) => (values) => values.map(mapper).join("\n");
+const mapToLines = (mapper) => (values) =>
+    toArray(
+        lazyMap(values.map((value, index) => ({ value, index })), ({ value, index }) =>
+            mapper(value, index)
+        )
+    ).join("\n");
 
 /**
  * Wrap text in an ANSI colour code.
@@ -224,7 +231,7 @@ const formatInfo = createStatusFormatter(cyan, "ℹ");
 
 /**
  * Format a list of validation errors for display.
- * Uses map — HOF — to prepend bullet markers.
+ * Uses lazy mapping to prepend bullet markers.
  *
  * @param {string[]} errors
  * @returns {string}
