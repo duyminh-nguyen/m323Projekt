@@ -195,10 +195,18 @@ small transformation helpers
 
 #### 5. Closures and Recursion
 
-The project demonstrates JavaScript FP techniques through: -
-**closures** - `createRoleFilter` - ANSI formatter factories - CLI
-prompt factories - **recursion** - recursive menu loop - recursive field
-collection in the CLI
+The project demonstrates JavaScript FP techniques through:
+
+- **closures**
+  - `createRoleFilter`
+  - ANSI formatter factories
+  - CLI prompt factories
+
+- **recursion**
+  - recursive menu loop (`runMenu`)
+  - recursive field collection in the CLI
+  - recursive character lookup (`findCharacterById`)
+  - recursive role statistics computation (`getRoleStats`)
 
 #### 6. Type Safety in JavaScript
 
