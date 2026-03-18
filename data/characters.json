@@ -1,0 +1,112 @@
+[
+  {
+    "id": "1",
+    "name": "Lightning",
+    "age": 21,
+    "race": "Human",
+    "gender": "Female",
+    "height": "171 cm",
+    "description": "A former Guardian Corps soldier driven by determination and an iron will. She embarks on a desperate mission to save her sister Serah from a cruel fate.",
+    "primaryRole": "Commando",
+    "ultimateWeapon": "Omega Weapon"
+  },
+  {
+    "id": "2",
+    "name": "Snow Villiers",
+    "age": 21,
+    "race": "Human",
+    "gender": "Male",
+    "height": "200 cm",
+    "description": "An idealistic hero-wannabe and leader of NORA. His unshakeable optimism and love for Serah push him to fight no matter the odds.",
+    "primaryRole": "Sentinel",
+    "ultimateWeapon": "Sacrifice: Omega"
+  },
+  {
+    "id": "3",
+    "name": "Oerba Dia Vanille",
+    "age": 19,
+    "race": "Human (l'Cie)",
+    "gender": "Female",
+    "height": "160 cm",
+    "description": "A cheerful and optimistic girl hiding a painful secret. Her upbeat nature masks deep guilt and a burden she has carried for centuries.",
+    "primaryRole": "Saboteur",
+    "ultimateWeapon": "Nirvana"
+  },
+  {
+    "id": "4",
+    "name": "Sazh Katzroy",
+    "age": 40,
+    "race": "Human",
+    "gender": "Male",
+    "height": "185 cm",
+    "description": "A warm-hearted airship pilot and devoted father. He travels with a baby chocobo nesting in his afro and carries sorrow about his son Dajh.",
+    "primaryRole": "Synergist",
+    "ultimateWeapon": "Total Eclipses"
+  },
+  {
+    "id": "5",
+    "name": "Hope Estheim",
+    "age": 14,
+    "race": "Human",
+    "gender": "Male",
+    "height": "155 cm",
+    "description": "A timid boy who lost his mother during the Purge. He channels his grief into resolve and gradually grows into a courageous leader.",
+    "primaryRole": "Ravager",
+    "ultimateWeapon": "Hawkeye"
+  },
+  {
+    "id": "6",
+    "name": "Oerba Yun Fang",
+    "age": 21,
+    "race": "Human (l'Cie)",
+    "gender": "Female",
+    "height": "173 cm",
+    "description": "A fierce and direct warrior from Gran Pulse. Her loyalty to Vanille is absolute, and her combat prowess is matched only by her sharp wit.",
+    "primaryRole": "Commando",
+    "ultimateWeapon": "Taming Pole"
+  },
+  {
+    "id": "7",
+    "name": "test",
+    "age": 21,
+    "race": "test",
+    "gender": "test",
+    "height": "test",
+    "description": "test2",
+    "primaryRole": "Medic",
+    "ultimateWeapon": "test"
+  },
+  {
+    "id": "8",
+    "name": "del1",
+    "age": 1,
+    "race": "del",
+    "gender": "del",
+    "height": "1",
+    "description": "del",
+    "primaryRole": "Sentinel",
+    "ultimateWeapon": "del"
+  },
+  {
+    "id": "9",
+    "name": "editnew",
+    "age": 1,
+    "race": "edit",
+    "gender": "edit",
+    "height": "2",
+    "description": "edit",
+    "primaryRole": "Synergist",
+    "ultimateWeapon": "edit"
+  },
+  {
+    "id": "11",
+    "name": "new",
+    "age": 1,
+    "race": "new",
+    "gender": "new",
+    "height": "1",
+    "description": "new",
+    "primaryRole": "Ravager",
+    "ultimateWeapon": "new"
+  }
+]

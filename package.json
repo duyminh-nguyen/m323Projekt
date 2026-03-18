@@ -1,0 +1,15 @@
+{
+  "name": "ff13-character-database",
+  "version": "1.0.0",
+  "description": "Final Fantasy XIII Character Database Viewer — Functional Programming Demo",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "keywords": ["functional-programming", "final-fantasy", "nodejs", "cli"],
+  "license": "MIT"
+}
