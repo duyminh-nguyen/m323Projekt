@@ -125,14 +125,27 @@ const mergeCharacterUpdates = (existing, updates) => ({
 });
 
 /**
- * Find a single character by ID.
- * Pure: no side effects.
- * @param {Character[]} characters
+ * Recursively finds a character by id.
+ *
+ * @param {Array<Object>} characters
  * @param {string} id
- * @returns {Character | undefined}
+ * @param {number} index
+ * @returns {Object|undefined}
  */
+const findCharacterByIdRecursive = (characters, id, index = 0) => {
+  if (index >= characters.length) {
+    return undefined;
+  }
+
+  if (characters[index].id === id) {
+    return characters[index];
+  }
+
+  return findCharacterByIdRecursive(characters, id, index + 1);
+};
+
 const findCharacterById = (characters, id) =>
-    characters.find((character) => character.id === id);
+    findCharacterByIdRecursive(characters, id);
 
 /**
  * Check whether a character exists.
@@ -290,28 +303,46 @@ const sortByName = (characters) =>
     [...characters].sort(compareByString((character) => character.name));
 
 /**
- * Gather role statistics from the character list.
- * Uses reduce to build a new immutable accumulator at each step.
+ * Recursively counts how many times each primary role appears.
  *
- * @param {Character[]} characters
+ * @param {Array<Object>} characters
+ * @param {number} index
+ * @param {Record<string, number>} acc
  * @returns {Record<string, number>}
  */
-const getRoleStats = (characters) =>
-    characters.reduce(
-        (stats, character) => ({
-          ...stats,
-          [character.primaryRole]: (stats[character.primaryRole] ?? 0) + 1,
-        }),
-        {}
-    );
+const getRoleStatsRecursive = (characters, index = 0, acc = {}) => {
+  if (index >= characters.length) {
+    return acc;
+  }
+
+  const character = characters[index];
+  const role = character.primaryRole;
+
+  const nextAcc = {
+    ...acc,
+    [role]: (acc[role] || 0) + 1,
+  };
+
+  return getRoleStatsRecursive(characters, index + 1, nextAcc);
+};
+
+/**
+ * Public function used by the app.
+ *
+ * @param {Array<Object>} characters
+ * @returns {Record<string, number>}
+ */
+const getRoleStats = (characters) => getRoleStatsRecursive(characters);
 
 module.exports = {
   addCharacter,
   updateCharacter,
   deleteCharacter,
   findCharacterById,
+  findCharacterByIdRecursive,
   createRoleFilter,
   sortByName,
   getRoleStats,
+  getRoleStatsRecursive,
   generateNextId,
 };

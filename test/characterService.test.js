@@ -6,9 +6,11 @@ const {
     updateCharacter,
     deleteCharacter,
     findCharacterById,
+    findCharacterByIdRecursive,
     createRoleFilter,
     sortByName,
     getRoleStats,
+    getRoleStatsRecursive,
     generateNextId,
 } = require("../services/characterService");
 
@@ -263,4 +265,14 @@ test("getRoleStats returns correct role counts", () => {
 
 test("getRoleStats returns an empty object for an empty array", () => {
     assert.deepEqual(getRoleStats([]), {});
+});
+
+test("findCharacterByIdRecursive returns the matching character recursively", () => {
+    const result = findCharacterByIdRecursive(baseCharacters, "3");
+    assert.equal(result.name, "Snow Villiers");
+});
+
+test("findCharacterByIdRecursive returns undefined when id is missing", () => {
+    const result = findCharacterByIdRecursive(baseCharacters, "999");
+    assert.equal(result, undefined);
 });
