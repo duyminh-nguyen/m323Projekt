@@ -63,6 +63,7 @@ All changes are automatically persisted in:
     utils/
       validators.js               ← pure validation functions
       formatters.js               ← pure display/string functions
+      lazy.js                     ← lazy evaluation helpers via generators
 
 ------------------------------------------------------------------------
 
@@ -201,6 +202,7 @@ The project demonstrates JavaScript FP techniques through:
   - `createRoleFilter`
   - ANSI formatter factories
   - CLI prompt factories
+  - validator builders
 
 - **recursion**
   - recursive menu loop (`runMenu`)
@@ -210,9 +212,21 @@ The project demonstrates JavaScript FP techniques through:
 
 #### 6. Type Safety in JavaScript
 
-Since this project uses JavaScript rather than TypeScript: - JSDoc
-typedefs document core data shapes - validators enforce runtime
-correctness - repository loading normalizes persisted JSON data
+Task Replace with Lazy Evaluation. For more Information read 7. Lazy Evaluation
+
+#### 7. Lazy Evaluation
+
+The project also demonstrates lazy evaluation through JavaScript generator-based pipelines.
+
+A dedicated utility module (`utils/lazy.js`) provides:
+
+- `lazyFilter`
+- `lazyMap`
+- `toArray`
+
+These functions allow character data to be processed lazily and only evaluated when the final result is needed. Lazy evaluation is used in the service layer for role-based filtering and in the formatting layer for display transformation pipelines.
+
+This adds an additional functional programming concept from theory without changing the external behavior of the application.
 
 ------------------------------------------------------------------------
 
@@ -239,6 +253,12 @@ The following modules are covered by automated unit tests:
   - handling invalid or missing files
   - normalization of persisted data
   - saving valid data to disk
+
+- `utils/lazy.js`
+  - lazy filtering
+  - lazy mapping
+  - pipeline composition
+  - deferred evaluation until materialization
 
 All tests ensure deterministic behavior and validate the functional programming principles used in the project.
 
@@ -285,9 +305,14 @@ Manual testing through the CLI can be used in addition to automated tests to ver
 
 ## Summary
 
-This project highlights functional programming strengths through: - pure
-business logic - immutable updates - higher-order functions - function
-composition - closures - recursion - clear separation of I/O and core
-logic
+This project highlights functional programming strengths through:
+- pure business logic
+- immutable updates
+- higher-order functions
+- function composition
+- closures
+- recursion
+- lazy evaluation
+- clear separation of I/O and core logic
 
 
