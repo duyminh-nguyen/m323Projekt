@@ -64,6 +64,7 @@ All changes are automatically persisted in:
       validators.js               ← pure validation functions
       formatters.js               ← pure display/string functions
       lazy.js                     ← lazy evaluation helpers via generators
+      either.js                   ← functional error handling with Left/Right
 
 ------------------------------------------------------------------------
 
@@ -228,6 +229,18 @@ These functions allow character data to be processed lazily and only evaluated w
 
 This adds an additional functional programming concept from theory without changing the external behavior of the application.
 
+#### 8. Functional Error Handling with Either
+
+The project also demonstrates functional error handling using an `Either` abstraction.
+
+A dedicated utility module (`utils/either.js`) provides:
+
+- `Right(value)` for successful computations
+- `Left(error)` for failures with explicit error information
+- `orElse(...)` for conditional recovery
+
+This avoids relying on exceptions or `null` values and keeps functions pure by always returning a single explicit value. In the service layer, character lookup can be expressed as `findCharacterByIdEither`, which returns either `Right(character)` or `Left(errorMessage)`.
+
 ------------------------------------------------------------------------
 
 ## Testing
@@ -259,6 +272,13 @@ The following modules are covered by automated unit tests:
   - lazy mapping
   - pipeline composition
   - deferred evaluation until materialization
+
+- `utils/either.js`
+  - `Right` / `Left` construction
+  - success and failure checks
+  - mapping over successful values
+  - conditional recovery with `orElse`
+  - integration with character lookup
 
 All tests ensure deterministic behavior and validate the functional programming principles used in the project.
 
