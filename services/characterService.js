@@ -9,6 +9,8 @@
 
 const { validateCharacter } = require("../utils/validators");
 
+const { Right, Left } = require("../utils/either");
+
 /**
  * @typedef {Object} Character
  * @property {string} id
@@ -342,11 +344,28 @@ const getRoleStatsRecursive = (characters, index = 0, acc = {}) => {
  */
 const getRoleStats = (characters) => getRoleStatsRecursive(characters);
 
+/**
+ * Functional error handling variant of character lookup.
+ * Returns Either instead of undefined.
+ *
+ * @param {Array<Object>} characters
+ * @param {string} id
+ * @returns {{ tag: "Right", value: Object } | { tag: "Left", error: string }}
+ */
+const findCharacterByIdEither = (characters, id) => {
+  const character = findCharacterById(characters, id);
+
+  return character
+      ? Right(character)
+      : Left(`Character with id "${id}" not found.`);
+};
+
 module.exports = {
   addCharacter,
   updateCharacter,
   deleteCharacter,
   findCharacterById,
+  findCharacterByIdEither,
   findCharacterByIdRecursive,
   createRoleFilter,
   sortByName,

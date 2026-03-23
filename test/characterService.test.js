@@ -1,5 +1,6 @@
 const test = require("node:test");
 const assert = require("node:assert/strict");
+const { isRight, isLeft } = require("../utils/either");
 
 const {
     addCharacter,
@@ -12,6 +13,7 @@ const {
     getRoleStats,
     getRoleStatsRecursive,
     generateNextId,
+    findCharacterByIdEither,
 } = require("../services/characterService");
 
 const baseCharacters = [
@@ -275,4 +277,18 @@ test("findCharacterByIdRecursive returns the matching character recursively", ()
 test("findCharacterByIdRecursive returns undefined when id is missing", () => {
     const result = findCharacterByIdRecursive(baseCharacters, "999");
     assert.equal(result, undefined);
+});
+
+test("findCharacterByIdEither returns Right for an existing character", () => {
+    const result = findCharacterByIdEither(baseCharacters, "2");
+
+    assert.equal(isRight(result), true);
+    assert.equal(result.value.name, "Hope Estheim");
+});
+
+test("findCharacterByIdEither returns Left for a missing character", () => {
+    const result = findCharacterByIdEither(baseCharacters, "999");
+
+    assert.equal(isLeft(result), true);
+    assert.equal(result.error, 'Character with id "999" not found.');
 });

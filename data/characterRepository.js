@@ -10,6 +10,8 @@ const path = require("path");
 
 const DB_PATH = path.join(__dirname, "characters.json");
 
+const { Right, Left } = require("../utils/either");
+
 /**
  * @typedef {Object} Character
  * @property {string} id
@@ -134,4 +136,19 @@ const saveCharacters = (characters) => {
   );
 };
 
-module.exports = { loadCharacters, saveCharacters };
+/**
+ * Functional error handling variant for loading character data.
+ * Models external data handling via Either.
+ *
+ * @returns {{ tag: "Right", value: Array<Object> } | { tag: "Left", error: string }}
+ */
+const loadCharactersEither = () => {
+  try {
+    const characters = loadCharacters();
+    return Right(characters);
+  } catch (error) {
+    return Left(`Failed to load character data: ${error.message}`);
+  }
+};
+
+module.exports = { loadCharacters, saveCharacters, loadCharactersEither };
